@@ -1,0 +1,368 @@
+/* Retro Game Boy inspired color palette */
+:root {
+    --retro-dark: #0f380f;
+    --retro-medium: #306230;
+    --retro-light: #9bbc0f;
+    --retro-lightest: #8bac0f;
+    --retro-bg: #1a1a1a;
+    --retro-accent: #00ff41;
+    --retro-error: #ff4444;
+    --retro-warning: #ffaa00;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, var(--retro-bg) 0%, var(--retro-dark) 100%);
+    color: var(--retro-light);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--retro-accent);
+    text-shadow: 0 0 10px var(--retro-accent);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: var(--retro-light);
+    opacity: 0.8;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--retro-dark);
+    padding: 15px 20px;
+    border: 2px solid var(--retro-light);
+    border-radius: 8px;
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.difficulty-selector label {
+    color: var(--retro-light);
+    font-weight: bold;
+}
+
+.difficulty-selector select {
+    background: var(--retro-bg);
+    color: var(--retro-light);
+    border: 1px solid var(--retro-light);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.btn {
+    background: var(--retro-medium);
+    color: var(--retro-light);
+    border: 2px solid var(--retro-light);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--retro-light);
+    color: var(--retro-dark);
+    box-shadow: 0 0 10px var(--retro-light);
+}
+
+.btn-primary {
+    background: var(--retro-accent);
+    color: var(--retro-bg);
+    border-color: var(--retro-accent);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 450px;
+    background: var(--retro-dark);
+    padding: 10px 20px;
+    border: 1px solid var(--retro-light);
+    border-radius: 6px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.label {
+    color: var(--retro-light);
+    opacity: 0.8;
+}
+
+.value {
+    color: var(--retro-accent);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.status {
+    color: var(--retro-light);
+    font-weight: bold;
+}
+
+.sudoku-container {
+    position: relative;
+    background: var(--retro-dark);
+    padding: 20px;
+    border: 3px solid var(--retro-light);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(139, 172, 15, 0.3);
+}
+
+.sudoku-board {
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: var(--retro-bg);
+    border: 2px solid var(--retro-light);
+}
+
+.sudoku-board td {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.4em;
+    font-weight: bold;
+    border: 1px solid var(--retro-medium);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--retro-bg);
+}
+
+/* 3x3 box borders */
+.sudoku-board td:nth-child(3n) {
+    border-right: 2px solid var(--retro-light);
+}
+
+.sudoku-board tr:nth-child(3n) td {
+    border-bottom: 2px solid var(--retro-light);
+}
+
+/* Cell states */
+.sudoku-board td.original {
+    background: var(--retro-dark);
+    color: var(--retro-light);
+    font-weight: bold;
+}
+
+.sudoku-board td.user-input {
+    background: var(--retro-medium);
+    color: var(--retro-accent);
+    font-weight: bold;
+}
+
+.sudoku-board td.selected {
+    background: var(--retro-accent) !important;
+    color: var(--retro-bg) !important;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sudoku-board td.invalid {
+    background: var(--retro-error) !important;
+    color: white !important;
+    animation: shake 0.5s ease-in-out;
+}
+
+.sudoku-board td:hover:not(.selected) {
+    background: var(--retro-medium);
+    color: var(--retro-accent);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+.number-pad {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--retro-dark);
+    padding: 20px;
+    border: 2px solid var(--retro-light);
+    border-radius: 10px;
+}
+
+.number-row {
+    display: flex;
+    gap: 10px;
+}
+
+.number-btn {
+    width: 50px;
+    height: 50px;
+    background: var(--retro-medium);
+    color: var(--retro-light);
+    border: 2px solid var(--retro-light);
+    border-radius: 6px;
+    font-size: 1.4em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.number-btn:hover {
+    background: var(--retro-light);
+    color: var(--retro-dark);
+    transform: scale(1.05);
+}
+
+.number-btn:active {
+    transform: scale(0.95);
+}
+
+.clear-btn {
+    width: 170px !important;
+    background: var(--retro-warning);
+    color: var(--retro-bg);
+    border-color: var(--retro-warning);
+}
+
+.clear-btn:hover {
+    background: #ffcc44;
+}
+
+.message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--retro-dark);
+    color: var(--retro-accent);
+    padding: 20px 30px;
+    border: 2px solid var(--retro-accent);
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 65, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(0, 255, 65, 0.8); }
+}
+
+.instructions {
+    background: var(--retro-dark);
+    padding: 20px;
+    border: 1px solid var(--retro-light);
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.instructions h3 {
+    color: var(--retro-accent);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.instructions ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.instructions li {
+    padding: 5px 0;
+    border-left: 3px solid var(--retro-light);
+    padding-left: 15px;
+    margin-bottom: 8px;
+}
+
+.instructions strong {
+    color: var(--retro-accent);
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    color: var(--retro-light);
+    opacity: 0.7;
+    border-top: 1px solid var(--retro-medium);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 2em;
+    }
+    
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .sudoku-board td {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2em;
+    }
+    
+    .number-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2em;
+    }
+    
+    .clear-btn {
+        width: 145px !important;
+    }
+}
